@@ -1,0 +1,100 @@
+<ui:composition template="../resources/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <jsp:directive.page language="java"
+        contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" />
+    <jsp:text>
+        <![CDATA[ <?xml version="1.0" encoding="ISO-8859-1" ?> ]]>
+    </jsp:text>
+    <jsp:text>
+        <![CDATA[ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> ]]>
+    </jsp:text>
+	
+	<ui:define name="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<ui:include src="../resources/modulo/menuUsr.xhtml"/>
+				</div>
+				<div class="col-md-9">
+					<div class="page-header">
+				  		<h2>Listar Anúncios <small>lista dos meus anúncios ativos.</small></h2>
+					</div>
+					<p:breadCrumb>
+					    <p:menuitem value="Início" url="#" />
+					    <p:menuitem value="Meus Anúncio" url="#" />
+					    <p:menuitem value="Listar Anúncios" url="#" />
+					</p:breadCrumb>
+					<br/>
+					<p:dataTable id="dataTable" value="#{anuncioBean.anunciosUsuario}" var="anuncio"
+					paginator="true" rows="5" paginatorPosition="bottom" reflow="true" rowKey="#{anuncio.id}"
+					selectionMode="single" selection="#{anuncioBean.anuncioSelecionado}">
+					<p:ajax event="rowSelect" update=":form:anDetail" oncomplete="PF('anDialog').show()"/>
+						<p:column headerText="Título" sortBy="#{anuncio.titulo}" filterBy="#{anuncio.titulo}">
+							<h:outputText value="#{anuncio.titulo}"/>
+						</p:column>
+						<p:column headerText="Data" sortBy="#{anuncio.data}" filterBy="#{anuncio.data}">
+							<h:outputText value="#{anuncio.data}"/>
+						</p:column>
+						<p:column headerText="Descrição" sortBy="#{anuncio.descricao}" filterBy="#{anuncio.descricao}">
+							<h:outputText value="#{anuncio.descricao}"/>
+						</p:column>	
+						<p:column headerText="Figurinha" sortBy="#{anuncio.figurinha.cod}" filterBy="#{anuncio.figurinha.cod}">
+							<h:outputText value="#{anuncio.figurinha.cod}"/>
+						</p:column>																														
+					</p:dataTable>
+					<br/>
+					<div class="pull-right">
+						<p:button value="cancelar" outcome="inicio"/>
+					</div>
+					<p:dialog header="Detalhes da Figurinha" widgetVar="anDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">				
+						<p:outputPanel id="anDetail" style="text-align:center">
+				            <p:separator />
+				            <h:outputText value="Anúncio" />
+				            <p:separator />
+				            <p:panelGrid columns="2">
+				            	<h:outputText value="Título: " />
+				                <h:outputText value="#{anuncioBean.anuncioSelecionado.titulo}" />
+				                <h:outputText value="Data: " />
+				                <h:outputText value="#{anuncioBean.anuncioSelecionado.data}" />
+				                <h:outputText value="Descrição: " />
+				                <h:outputText value="#{anuncioBean.anuncioSelecionado.descricao}" />
+				            </p:panelGrid>
+				            <p:separator />
+				            <h:outputText value="Figurinha" />
+				            <p:separator />
+				            <p:panelGrid columns="2">
+				            	<h:outputText value="Código: " />
+				                <h:outputText value="#{anuncioBean.anuncioSelecionado.figurinha.cod}" />
+				                <h:outputText value="Nome: " />
+				                <h:outputText value="#{anuncioBean.anuncioSelecionado.figurinha.nome}" />
+				                <h:outputText value="Grupo: " />
+				                <h:outputText value="#{anuncioBean.anuncioSelecionado.figurinha.grupo}" />
+				            </p:panelGrid>
+				            <p:separator />
+				            <h:outputText value="Álbum" />
+				            <p:separator />
+				            <p:panelGrid columns="2">
+				            	<h:outputText value="Nome:" />
+				                <h:outputText value="#{anuncioBean.anuncioSelecionado.figurinha.album.nome}" />
+				                <h:outputText value="Ano:" />
+				                <h:outputText value="#{anuncioBean.anuncioSelecionado.figurinha.album.ano}" />
+				                <h:outputText value="Categoria:" />
+				                <h:outputText value="#{anuncioBean.anuncioSelecionado.figurinha.album.categoria}" />
+				                <h:outputText value="Pais:" />
+				                <h:outputText value="#{anuncioBean.anuncioSelecionado.figurinha.album.pais}" />
+				                <h:outputText value="Editora:" />
+				                <h:outputText value="#{anuncioBean.anuncioSelecionado.figurinha.album.editora}" />
+				            </p:panelGrid>				            
+				        </p:outputPanel>
+				    </p:dialog>					
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

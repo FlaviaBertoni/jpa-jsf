@@ -1,0 +1,87 @@
+package br.ifsp.troca.bean;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+public abstract class SuperBean {
+	
+	protected String mensagem;
+	protected EntityManagerFactory factory;
+	
+	public String getMensagem() {
+		return mensagem;
+	}
+
+
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
+	}
+
+
+	public EntityManager criaManager(){
+		
+		this.factory = Persistence.createEntityManagerFactory("trocafigurinha");
+		EntityManager manager = factory.createEntityManager();
+		
+		return manager;
+	}
+	
+
+	public void enviaMensagem(int funcao, int nome){
+		if(nome > 4 || funcao > 3){
+			this.mensagem = "Operação realizada com sucesso!"
+					+"\n Se deseja efetuar a operação novamente clique no botão <continuar>,"
+					+"\n Se não, clique no botão <voltar> para retornar ao menu.";
+		}else{
+			switch(funcao){
+			case 1: 
+				this.mensagem= nomeCorrespondente(nome)+" cadastrado(a) com sucesso!"
+						+"\n Se deseja efetuar um cadastro novamente clique no botão <continuar>,"
+						+"\n Se não, clique no botão <voltar> para retornar ao menu.";
+				break;
+			case 2:
+				this.mensagem= nomeCorrespondente(nome)+" alterado(a) com sucesso!"
+						+"\n Se deseja efetuar uma alteração novamente clique no botão <continuar>,"
+						+"\n Se não, clique no botão <voltar> para retornar ao menu.";
+				break;
+			case 3:
+				this.mensagem= nomeCorrespondente(nome)+" excluido(a) com sucesso!"
+						+"\n Se deseja efetuar uma exclusão novamente clique no botão <continuar>,"
+						+"\n Se não, clique no botão <voltar> para retornar ao menu.";
+				break;					
+			}
+		}	
+	}
+	
+	public String nomeCorrespondente(int nome){
+		switch(nome){
+			case 1:
+				return "Álbum";
+			case 2:
+				return "Figurinha";
+			case 3:
+				return "Anúncio";
+			case 4:
+				return "Usuário";
+			default: return "Operação";
+		}
+		
+	}
+	
+	/*
+	 * Lista de Correspondência:
+	 * 
+	 * Funções: (parâmetro funcao)
+	 * 1 - Adicionar/Cadastrar
+	 * 2 - Alterar
+	 * 3 - Excluir/Remover
+	 * 
+	 * Nomes: (parâmetro nome)
+	 * 1 - Album
+	 * 2 - Figurinha
+	 * 3 - Anúncio
+	 * 4 - Usuário
+	 * 
+	 */
+}

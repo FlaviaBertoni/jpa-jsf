@@ -1,0 +1,70 @@
+<ui:composition template="../resources/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <jsp:directive.page language="java"
+        contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" />
+    <jsp:text>
+        <![CDATA[ <?xml version="1.0" encoding="ISO-8859-1" ?> ]]>
+    </jsp:text>
+    <jsp:text>
+        <![CDATA[ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> ]]>
+    </jsp:text>
+	
+	<ui:define name="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<ui:include src="../resources/modulo/menuAdm.xhtml"/>
+				</div>
+				<div class="col-md-9">
+					<div class="page-header">
+				  		<h2>Cadastrar Figurinha <small>insira os dados da figurinha.</small></h2>
+					</div>
+					<p:breadCrumb>
+					    <p:menuitem value="Início" url="#" />
+					    <p:menuitem value="Buscas" url="#" />
+					    <p:menuitem value="Buscar figurinha" url="#" />
+					</p:breadCrumb>
+					<br/>
+					<h:panelGrid columns="2" cellspacing="10" cellpadding="5" style="width: 100%">
+						<h:outputLabel value="Código da Figurinha: "/>
+							<p:inputText id="cod" value="#{figurinhaBean.cod}" required="true">
+								<f:validateLength maximum="45"/>
+								<f:validateRequired/>
+							</p:inputText>
+									
+						<h:outputLabel value="Nome: "/>
+						<p:inputText value="#{figurinhaBean.nome}"/>
+						
+						<h:outputLabel value="Grupo: "/>
+						<p:inputText value="#{figurinhaBean.grupo}"/>
+						
+						<h:outputLabel value="Álbuns: "/>
+						<p:selectOneMenu value="#{figurinhaBean.id_album}">
+							<f:selectItems
+								value="#{figurinhaBean.albuns}"
+								var="al"
+								itemValue="#{al.id}"
+								itemLabel="#{al.nome}"
+							/>
+						</p:selectOneMenu>
+						<br/>
+						<h:panelGroup>
+							<br/>
+							<div class="pull-right">
+								<p:button value="cancelar" outcome="inicio" style="margin-right: 10px"/>
+								<p:commandButton value="cadastrar" action="#{figurinhaBean.cadastrarFigurinha}"/>
+							</div>
+						</h:panelGroup>
+					</h:panelGrid>
+					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

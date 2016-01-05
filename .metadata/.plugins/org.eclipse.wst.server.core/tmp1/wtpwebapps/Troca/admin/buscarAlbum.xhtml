@@ -1,0 +1,79 @@
+<ui:composition template="../resources/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <jsp:directive.page language="java"
+        contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" />
+    <jsp:text>
+        <![CDATA[ <?xml version="1.0" encoding="ISO-8859-1" ?> ]]>
+    </jsp:text>
+    <jsp:text>
+        <![CDATA[ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> ]]>
+    </jsp:text>
+	
+	<ui:define name="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<ui:include src="../resources/modulo/menuAdm.xhtml"/>
+				</div>
+				<div class="col-md-9">
+					<div class="page-header">
+				  		<h2>Buscar Álbum <small>lista de álbuns cadastrados</small></h2>
+					</div>
+					<p:breadCrumb>
+					    <p:menuitem value="Início" url="#" />
+					    <p:menuitem value="Buscas" url="#" />
+					    <p:menuitem value="Buscar álbum" url="#" />
+					</p:breadCrumb>
+					<br/>
+					
+					<p:dataTable id="dataTable" value="#{albumBean.albuns}" var="al" rowKey="#{al.id}"
+					paginator="true" rows="5" paginatorPosition="bottom" reflow="true"
+					selectionMode="single" selection="#{albumBean.albumSelecionado}">
+					<p:ajax event="rowSelect" update=":form:alDetail" oncomplete="PF('alDialog').show()"/>
+						<p:column headerText="Nome" sortBy="#{al.nome}" filterBy="#{al.nome}">
+							<h:outputText value="#{al.nome}"/>
+						</p:column>
+						<p:column headerText="Ano" sortBy="#{al.ano}" filterBy="#{al.ano}">
+							<h:outputText value="#{al.ano}"/>
+						</p:column>
+						<p:column headerText="Categoria" sortBy="#{al.categoria}" filterBy="#{al.categoria}">
+							<h:outputText value="#{al.categoria}"/>
+						</p:column>
+						<p:column headerText="Pais" sortBy="#{al.pais}" filterBy="#{al.pais}">
+							<h:outputText value="#{al.pais}"/>
+						</p:column>
+						<p:column headerText="Editora" sortBy="#{al.editora}" filterBy="#{al.editora}">
+							<h:outputText value="#{al.editora}"/>
+						</p:column>
+					</p:dataTable>
+					<br/>
+					<div class="pull-right">
+						<p:button value="cancelar" outcome="inicio"/>
+					</div>
+					<p:dialog header="Detalhes do Álbum" widgetVar="alDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">				
+						<p:outputPanel id="alDetail" style="text-align:center;">
+				            <p:panelGrid columns="2">
+				            	<h:outputText value="Nome:" />
+				                <h:outputText value="#{albumBean.albumSelecionado.nome}" />
+				                <h:outputText value="Ano:" />
+				                <h:outputText value="#{albumBean.albumSelecionado.ano}" />
+				                <h:outputText value="Categoria:" />
+				                <h:outputText value="#{albumBean.albumSelecionado.categoria}" />
+				                <h:outputText value="Pais:" />
+				                <h:outputText value="#{albumBean.albumSelecionado.pais}" />
+				                <h:outputText value="Editora:" />
+				                <h:outputText value="#{albumBean.albumSelecionado.editora}" />
+				            </p:panelGrid>
+				        </p:outputPanel>
+				    </p:dialog>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

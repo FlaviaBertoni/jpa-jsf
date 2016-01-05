@@ -1,0 +1,30 @@
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page" 
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:ui="http://java.sun.com/jsf/facelets"
+          xmlns:p="http://primefaces.org/ui" 
+          xmlns:h="http://java.sun.com/jsf/html">
+
+	<p:menu>
+	    <p:submenu label="Adminstrador">
+      		<p:menuitem value="Início" icon="ui-icon-home" url="inicio.xhtml"/> 
+      		<p:menuitem value="Sair" icon="ui-icon-extlink" action="#{autenticarBean.registrarSaida}"/>
+      	</p:submenu>  
+	  	<p:submenu label="Cadastros">
+            <p:menuitem value="Cadastrar álbum" icon="ui-icon-document" url="cadastrarAlbum.xhtml"/>
+            <p:menuitem value="Cadastrar figurinha" icon="ui-icon-document" url="cadastrarFigurinha.xhtml"/>
+      	</p:submenu>
+	  	<p:submenu label="Alterações">
+            <p:menuitem value="Alterar álbum" icon="ui-icon-pencil" url="alterarAlbum.xhtml"/>
+            <p:menuitem value="Alterar figurinha" icon="ui-icon-pencil" url="alterarFigurinha.xhtml"/>
+      	</p:submenu>  
+ 	  	<p:submenu label="Buscas">
+            <p:menuitem value="Buscar álbum" icon="ui-icon-search" url="buscarAlbum.xhtml"/>
+            <p:menuitem value="Buscar figurinha" icon="ui-icon-search" url="buscarFigurinha.xhtml"/>
+      	</p:submenu>
+ 	  	<p:submenu label="Exclusões">
+            <p:menuitem value="Excluir álbum" icon="ui-icon-close" url="excluirAlbum.xhtml"/>
+            <p:menuitem value="Excluir figurinha" icon="ui-icon-close" url="excluirFigurinha.xhtml"/>
+      	</p:submenu>		
+	</p:menu>
+	
+</ui:composition>

@@ -1,0 +1,120 @@
+<ui:composition template="../resources/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <jsp:directive.page language="java"
+        contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" />
+    <jsp:text>
+        <![CDATA[ <?xml version="1.0" encoding="ISO-8859-1" ?> ]]>
+    </jsp:text>
+    <jsp:text>
+        <![CDATA[ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> ]]>
+    </jsp:text>
+	
+	<ui:define name="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<ui:include src="../resources/modulo/menuAdm.xhtml"/>
+				</div>
+				<div class="col-md-9">
+					<div class="page-header">
+				  		<h2>Alterar Álbum <small>clique sobre o álbum que deseja alterar.</small></h2>
+					</div>
+					<p:breadCrumb>
+					    <p:menuitem value="Início" url="#" />
+					    <p:menuitem value="Alterações" url="#" />
+					    <p:menuitem value="Alterar álbum" url="#" />
+					</p:breadCrumb>
+					<br/>
+					
+					<p:dataTable id="dataTable" value="#{albumBean.albuns}" var="al"
+					paginator="true" rows="5" paginatorPosition="bottom" reflow="true" rowKey="#{al.id}"
+					selectionMode="single" selection="#{albumBean.albumSelecionado}">
+					<p:ajax event="rowSelect" update=":form:alDetail" oncomplete="PF('alDialog').show()"/>
+						<p:column headerText="Nome" sortBy="#{al.nome}" filterBy="#{al.nome}">
+							<h:outputText value="#{al.nome}"/>
+						</p:column>
+						<p:column headerText="Ano" sortBy="#{al.ano}" filterBy="#{al.ano}">
+							<h:outputText value="#{al.ano}"/>
+						</p:column>
+						<p:column headerText="Categoria" sortBy="#{al.categoria}" filterBy="#{al.categoria}">
+							<h:outputText value="#{al.categoria}"/>
+						</p:column>
+						<p:column headerText="Pais" sortBy="#{al.pais}" filterBy="#{al.pais}">
+							<h:outputText value="#{al.pais}"/>
+						</p:column>
+						<p:column headerText="Editora" sortBy="#{al.editora}" filterBy="#{al.editora}">
+							<h:outputText value="#{al.editora}"/>
+						</p:column>
+					</p:dataTable>
+					<br/>
+					<div class="pull-right">
+						<p:button value="cancelar" outcome="inicio"/>
+					</div>
+					<p:dialog header="Alterar Álbum Selecionado" widgetVar="alDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="500">				
+						<p:outputPanel id="alDetail" style="text-align:center;">
+							<h:panelGrid columns="2" cellspacing="10" cellpadding="5" style="width: 100%">
+								<h:outputLabel value="Nome: "/>
+									<h:panelGroup>
+									<p:inputText id="nome" value="#{albumBean.albumSelecionado.nome}" required="true">
+										<f:validateLength maximum="45"/>
+										<f:validateRequired/>
+									</p:inputText>
+									</h:panelGroup>
+					
+								<h:outputLabel value="Categoria: "/>
+								<p:selectOneMenu id="catAlbum" value="#{albumBean.albumSelecionado.categoria}">
+									<f:selectItem itemValue="Futebol" itemLabel="Futebol"/>
+									<f:selectItem itemValue="Animação" itemLabel="Animação"/>
+									<f:selectItem itemValue="Filmes" itemLabel="Filmes"/>		
+									<f:selectItem itemValue="Séries" itemLabel="Séries"/>
+									<f:selectItem itemValue="Quadrinhos" itemLabel="Quadrinhos"/>
+									<f:selectItem itemValue="Jogos" itemLabel="Jogos"/>
+									<f:selectItem itemValue="Outros" itemLabel="Outros"/>				
+								</p:selectOneMenu>			
+								
+								<h:outputLabel value="Ano: "/>
+								<h:panelGroup>
+									<p:inputText id="ano" type="number" value="#{albumBean.albumSelecionado.ano}" required="true">
+										<f:validateLength maximum="4"/>
+										<f:validateRequired/>					
+									</p:inputText>
+								</h:panelGroup>
+									
+								<h:outputLabel value="Pais: "/>
+								<h:panelGroup>
+									<p:inputText id="pais" value="#{albumBean.albumSelecionado.pais}" required="true">
+										<f:validateLength maximum="45"/>
+										<f:validateRequired/>				
+									</p:inputText>	
+								</h:panelGroup>
+								
+								<h:outputLabel value="Editora: "/>
+								<h:panelGroup>
+									<p:inputText id="editora" value="#{albumBean.albumSelecionado.editora}" required="true">
+										<f:validateLength maximum="45"/>
+										<f:validateRequired/>				
+									</p:inputText>
+								</h:panelGroup>
+								<br/>
+								<h:panelGroup>
+									<br/>
+									<div class="pull-right">
+										<p:button value="cancelar" outcome="inicio" style="margin-right: 10px"/>
+										<p:commandButton value="alterar" action="#{albumBean.alterarAlbum}" update=":form:dataTable"/>
+									</div>
+								</h:panelGroup>
+							</h:panelGrid>
+							<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+				        </p:outputPanel>
+				    </p:dialog>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

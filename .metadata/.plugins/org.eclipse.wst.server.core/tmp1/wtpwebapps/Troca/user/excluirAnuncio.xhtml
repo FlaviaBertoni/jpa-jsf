@@ -1,0 +1,64 @@
+<ui:composition template="../resources/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <jsp:directive.page language="java"
+        contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" />
+    <jsp:text>
+        <![CDATA[ <?xml version="1.0" encoding="ISO-8859-1" ?> ]]>
+    </jsp:text>
+    <jsp:text>
+        <![CDATA[ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> ]]>
+    </jsp:text>
+	
+	<ui:define name="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<ui:include src="../resources/modulo/menuUsr.xhtml"/>
+				</div>
+				<div class="col-md-9">
+					<div class="page-header">
+				  		<h2>Excluir Anúncio <small>clique no "x" para excluir o anúncio desejado.</small></h2>
+					</div>
+					<p:breadCrumb>
+					    <p:menuitem value="Início" url="#" />
+					    <p:menuitem value="Meus Anúncio" url="#" />
+					    <p:menuitem value="Excluir Anúncio" url="#" />
+					</p:breadCrumb>
+					<br/>
+					<p:dataTable id="dataTable" value="#{anuncioBean.anunciosUsuario}" var="anuncio"
+					paginator="true" rows="5" paginatorPosition="bottom">
+						<p:column headerText="Título" sortBy="#{anuncio.titulo}" filterBy="#{anuncio.titulo}">
+							<h:outputText value="#{anuncio.titulo}"/>
+						</p:column>
+						<p:column headerText="Data" sortBy="#{anuncio.data}" filterBy="#{anuncio.data}">
+							<h:outputText value="#{anuncio.data}"/>
+						</p:column>
+						<p:column headerText="Descrição" sortBy="#{anuncio.descricao}" filterBy="#{anuncio.descricao}">
+							<h:outputText value="#{anuncio.descricao}"/>
+						</p:column>	
+						<p:column headerText="Figurinha" sortBy="#{anuncio.figurinha.cod}" filterBy="#{anuncio.figurinha.cod}">
+							<h:outputText value="#{anuncio.figurinha.cod}"/>
+						</p:column>
+						<p:column>
+							<h:commandLink action="#{anuncioBean.excluiAnuncio(anuncio.id)}">
+								<h:outputLabel value="x" />
+							</h:commandLink>
+						</p:column>																														
+					</p:dataTable>
+					<br/>
+					<div class="pull-right">
+						<p:button value="cancelar" outcome="inicio"/>
+					</div>
+					<b/><br/><br/>
+					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

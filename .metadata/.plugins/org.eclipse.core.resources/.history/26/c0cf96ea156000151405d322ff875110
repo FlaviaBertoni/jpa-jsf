@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" version="2.0">
+    <jsp:directive.page language="java"
+        contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" />
+    <jsp:text>
+        <![CDATA[ <?xml version="1.0" encoding="ISO-8859-1" ?> ]]>
+    </jsp:text>
+    <jsp:text>
+        <![CDATA[ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> ]]>
+    </jsp:text>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Buscar Figurinha</title>
+<h:outputStylesheet library="css" name="main.css"/>
+</h:head>
+<body>
+<f:view>
+	<h:form>
+		<h:outputLabel value="BUSCAR FIGURINHA" class="titulo"/>
+		<div class="nav">
+		<h:link value="Menu de Administrador > Buscas " outcome="menuAdm"/>
+		<h:link value="> Buscar Figurinha" outcome="buscarFigurinha"/>
+		</div>
+		<br/><hr/><br/>
+
+		<div style="display: inline-block; width:100%; text-align: right;">
+			<h:inputText value="#{figurinhaBean.busca}" style="width:85%;"/>
+			<h:commandButton value="buscar" action="#{figurinhaBean.buscaFigurinha}" style="width:80px;"/>
+		</div>
+		<div class="conteiner">
+			<h:dataTable value="#{figurinhaBean.figurinhas}" var="fig" class="table" >
+				<h:column>
+					<f:facet name="header">Código</f:facet>
+					#{fig.cod}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Nome</f:facet>
+					#{fig.nome}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Grupo</f:facet>
+					#{fig.grupo}
+				</h:column>	
+				
+				 
+				<h:column>
+					<f:facet name="header">Álbum</f:facet>
+					#{fig.album.nome}
+				</h:column>
+																	
+			</h:dataTable>
+		</div>
+
+		<div class="buttons">
+			<h:button value="cancelar" outcome="menuAdm"/>
+		</div>		
+					
+	</h:form>
+</f:view>
+</body>
+</html>
+</jsp:root>

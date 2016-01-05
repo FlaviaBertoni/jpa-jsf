@@ -1,0 +1,27 @@
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page" 
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:ui="http://java.sun.com/jsf/facelets"
+          xmlns:p="http://primefaces.org/ui" 
+          xmlns:h="http://java.sun.com/jsf/html">
+
+	<p:menu>
+	    <p:submenu label="Usuário">
+      		<p:menuitem value="Início" icon="ui-icon-home" url="inicio.xhtml"/> 
+      		<p:menuitem value="Sair" icon="ui-icon-extlink" action="#{autenticarBean.registrarSaida}"/>
+      	</p:submenu>  
+ 	  	<p:submenu label="Busca">
+            <p:menuitem value="Buscar anúncios" icon="ui-icon-search" url="buscarAnuncio.xhtml"/>
+      	</p:submenu>      	
+	  	<p:submenu label="Meus anúncios">
+            <p:menuitem value="Listar anúncios" icon="ui-icon-pencil" url="buscarAnuncioDoUsuario.xhtml"/>
+            <p:menuitem value="Cadastrar anúncio" icon="ui-icon-pencil" url="cadastrarAnuncio.xhtml"/>
+            <p:menuitem value="Excluir anúncio" icon="ui-icon-pencil" url="excluirAnuncio.xhtml"/>
+      	</p:submenu>  
+ 	  	<p:submenu label="Minha conta">
+            <p:menuitem value="Visualizar conta" icon="ui-icon-person" url="visualizarUsuario.xhtml"/>
+            <p:menuitem value="Alterar conta" icon="ui-icon-person" url="alterarUsuario.xhtml"/>
+            <p:menuitem value="Excluir conta" icon="ui-icon-person" url="excluirConta.xhtml"/>
+      	</p:submenu>		
+	</p:menu>
+	
+</ui:composition>

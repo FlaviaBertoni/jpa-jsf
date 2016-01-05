@@ -1,0 +1,46 @@
+<ui:composition template="../resources/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <jsp:directive.page language="java"
+        contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" />
+    <jsp:text>
+        <![CDATA[ <?xml version="1.0" encoding="ISO-8859-1" ?> ]]>
+    </jsp:text>
+    <jsp:text>
+        <![CDATA[ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> ]]>
+    </jsp:text>
+	
+	<ui:define name="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9">
+					<div class="page-header">
+				  		<h2>Início <small>sobre o sistema.</small></h2>
+					</div>
+					<p>Troca Figurinha 2.0 é um sistema desenvolvido como estudo de caso
+				  		da disciplina de Desenvolvimento de Sistemas Web (DSW) no IFSP - Campus Bragança Paulista com 
+				  		as tecnologias JSF e JPA, sendo utilizado também os componentes do primefaces e ajax.</p>
+				  	<p>O sistema é dividido em duas partes:</p>
+				  	<ul>
+					    <p:fragment rendered="true"><li>Administrador: possui as funções de cadastro, alteração, busca e
+					     exclusão de figurinhas e álbuns.</li></p:fragment>
+					    <p:fragment rendered="true"><li>Usuário: possui as opções de criar uma conta, alterar e excluir sua conta,
+					    publicar um anúncio de troca de figurinha, excluir seus anúncios e buscar por anúncios de outros usuários.</li></p:fragment>
+					</ul>
+					<p>
+						Esta é a sessão de administrador, é possível acessar todas as funções pelo menu ao lado →. As mudanças realizadas aqui
+						terão reflexo para o usuário em suas páginas.
+					</p>
+				</div>
+				<div class="col-md-3">
+					<ui:include src="../resources/modulo/menuAdm.xhtml"/>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>					

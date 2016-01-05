@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" 
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:ui="http://java.sun.com/jsf/facelets"
+          xmlns:p="http://primefaces.org/ui" 
+          xmlns:h="http://java.sun.com/jsf/html">
+    <jsp:directive.page language="java"
+        contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" />
+    <jsp:text>
+        <![CDATA[ <?xml version="1.0" encoding="ISO-8859-1" ?> ]]>
+    </jsp:text>
+    <jsp:text>
+        <![CDATA[ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> ]]>
+    </jsp:text>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Troca Figurinha</title>
+	<link rel="stylesheet" href="resources/css/bootstrap.min.css"/>
+	<style>
+		.container{
+			padding-top: 5px;
+			padding-bottom: 5px;
+		}
+	</style>
+</h:head>
+<h:body>
+<h:form id="form">
+		<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="page-header">
+				  		<h2>Login</h2>
+					</div>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Usuário: " for="campo_usuario"/>
+					<p:inputText value="#{autenticarBean.usuario}" id="campo_usuario"/>
+					
+					<h:outputLabel value="Senha: " for="campo_senha"/>
+					<p:password value="#{autenticarBean.senha}" id="campo_senha">
+						<f:validateLength maximum="45" minimum="6"/>
+					</p:password>
+				</h:panelGrid>
+				<br/>
+				<div class="pull-right">
+					<p:commandButton value="Entrar" action="#{autenticarBean.autenticar}"/>
+				</div>
+				<br/>
+			</div>
+			<div class="col-md-6">
+				<div class="page-header">
+				  		<h2>Cadastro</h2>
+					</div>
+				<h:panelGrid columns="2" cellpadding="5" style="width: 100%">
+					<h:outputLabel value="Nome de Usuário: "/>
+					<p:inputText id="usuario" value="#{usuarioBean.usuario}">
+						<f:validateLength maximum="45"/>
+						<f:validateRequired/>
+					</p:inputText>
+					
+					<h:outputLabel value="Nome: "/>
+					<p:inputText id="nome" value="#{usuarioBean.nome}">
+						<f:validateLength maximum="45"/>
+						<f:validateRequired/>
+					</p:inputText>
+					
+					<h:outputLabel value="E-mail: "/>
+					<p:inputText id="email" value="#{usuarioBean.email}">
+						<f:validateLength maximum="45"/>
+						<f:validateRequired/>
+					</p:inputText>
+					
+					<h:outputLabel value="Senha: "/>
+					<p:password id="senha" value="#{usuarioBean.senha}" feedback="true">
+						<f:validateLength maximum="45" minimum="6"/>
+						<f:validateRequired/>
+					</p:password>
+				</h:panelGrid>
+				<br/>
+				<div class="pull-right">
+					<p:commandButton value="cadastrar" action="#{usuarioBean.cadastrarUsuario}" onclick="reload()"/>
+				</div>
+			</div>
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+			<script> function reload() {alert("teste")} </script>
+		</div>
+		</div>
+	</h:form>
+</h:body>
+</html>
+</jsp:root>

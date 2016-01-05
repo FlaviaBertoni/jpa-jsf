@@ -1,0 +1,98 @@
+package br.ifsp.troca.repository;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
+import br.ifsp.troca.entities.Figurinha;
+
+public class FigurinhaRepository {
+
+	private EntityManager manager;
+	
+	/*------------------------------------------------
+	 * Construtor da Classe
+	 *------------------------------------------------
+	 * Quando a classe é instanciada, recebe como 
+	 * parâmetro o EntityManager já criado, o armazena
+	 * no atributo manager da classe e o utiliza para
+	 * realizar as transações necessárias.
+	 */ 
+	public FigurinhaRepository(EntityManager manager){
+		this.manager = manager;
+	}
+	
+	/*
+	 * Método, sem retorno, que abre uma transação a 
+	 * partir do atributo manager, persiste o objeto
+	 * do tipo Figurinha recebido como parâmetro e
+	 * o envia para o BD, ao final fecha o manager.
+	 */
+	public void adiciona(Figurinha fig){
+		this.manager.getTransaction().begin();
+		this.manager.persist(fig);
+		this.manager.getTransaction().commit();
+		this.manager.close();
+	}
+	
+	public void alterar(Figurinha fig){
+		this.manager.getTransaction().begin();
+		this.manager.merge(fig);
+		this.manager.getTransaction().commit();
+		this.manager.close();
+	}
+	
+	public Figurinha busca(int id){
+		return this.manager.find(Figurinha.class, id);
+	}
+	
+	public List<Figurinha> buscaTodos(){
+		TypedQuery<Figurinha> query = manager.createQuery(
+				"FROM Figurinha", Figurinha.class);
+		List<Figurinha> result = query.getResultList();
+		this.manager.close();
+		return result;
+	}
+	
+	// Método: busca as figurinhas, no BD, que possuam a busca recebida como parâmetro.
+	// Retorno: Lista de objetos do tipo Figurinha
+	public List<Figurinha> buscaComo(String busca){
+
+		String querySql="FROM Figurinha f"
+				+" WHERE f.nome LIKE :busca"
+				+" OR f.grupo LIKE :busca"
+				+" OR f.cod LIKE :busca"
+				+" OR f.album.nome LIKE :busca";	
+		
+		TypedQuery<Figurinha> query = manager.createQuery(querySql, Figurinha.class)
+				.setParameter("busca", "%"+busca+"%");
+		
+		List<Figurinha> result = query.getResultList();
+		this.manager.close();
+		return result;
+	}
+
+	// Método: Remove do BD a figurinha que possui o id recebido como parâmtro.
+	// Retorno: sem
+	public void remove(int id){
+		this.manager.getTransaction().begin();
+		Figurinha fig = this.manager.find(Figurinha.class, id);
+		this.manager.remove(fig);
+		this.manager.getTransaction().commit();
+		this.manager.close();
+	}
+	
+	public List<Figurinha> buscaFigurinhaPorAlbum(int id){
+
+		String querySql="FROM Figurinha f"
+				+" WHERE f.id_album = :id";	
+		
+		TypedQuery<Figurinha> query = manager.createQuery(querySql, Figurinha.class)
+				.setParameter("id", "%"+id+"%");
+		
+		List<Figurinha> result = query.getResultList();
+		this.manager.close();
+		return result;
+	}
+}

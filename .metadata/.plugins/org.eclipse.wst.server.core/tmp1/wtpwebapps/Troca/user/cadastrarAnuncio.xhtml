@@ -1,0 +1,82 @@
+<ui:composition template="../resources/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <jsp:directive.page language="java"
+        contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" />
+    <jsp:text>
+        <![CDATA[ <?xml version="1.0" encoding="ISO-8859-1" ?> ]]>
+    </jsp:text>
+    <jsp:text>
+        <![CDATA[ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> ]]>
+    </jsp:text>
+	
+	<ui:define name="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<ui:include src="../resources/modulo/menuUsr.xhtml"/>
+				</div>
+				<div class="col-md-9">
+					<div class="page-header">
+				  		<h2>Buscar Figurinha <small>lista de figurinhas cadastrados</small></h2>
+					</div>
+					<p:breadCrumb>
+					    <p:menuitem value="Início" url="#" />
+					    <p:menuitem value="Meus Anúncio" url="#" />
+					    <p:menuitem value="Cadastrar Anúncio" url="#" />
+					</p:breadCrumb>
+					<br/>
+					<h:panelGrid columns="2" cellspacing="10" cellpadding="5" style="width: 100%">	
+						<h:outputLabel value="Título: "/>
+						<p:inputText id="titulo" value="#{anuncioBean.titulo}" required="true">
+							<f:validateLength maximum="45"/>
+							<f:validateRequired/>
+						</p:inputText>
+			
+						<h:outputLabel value="Data: "/>
+						<p:calendar value="#{anuncioBean.data}" pattern="dd/MM/yyyy"/>
+			
+						<h:outputLabel value="Descrição: "/>
+						<p:inputTextarea id="descrição" value="#{anuncioBean.descricao}">
+							<f:validateLength maximum="200"/>
+						</p:inputTextarea>
+			
+						<h:outputLabel value="Álbum" />
+						<p:selectOneMenu value="#{anuncioBean.id_album}">
+						<p:ajax listener="#{anuncioBean.carregaFigurinhasAlbum}" update="figurinhas"/>
+							<f:selectItems
+								value="#{anuncioBean.albuns}"
+								var="al"
+								itemValue="#{al.id}"
+								itemLabel="#{al.nome}"
+							/>
+						</p:selectOneMenu>
+			
+						<h:outputLabel value="Figurinha: "/>
+						<p:selectOneMenu id="figurinhas" value="#{anuncioBean.id_figurinha}">
+							<f:selectItems
+								value="#{anuncioBean.figurinhas}"
+								var="fig"
+								itemValue="#{fig.id}"
+								itemLabel="#{fig.cod}"
+							/>
+						</p:selectOneMenu>		
+						<br/>
+						<h:panelGroup>
+							<div class="pull-right">
+								<p:button value="cancelar" outcome="inicio" style="margin-right: 10px"/>
+								<p:commandButton value="cadastrar" action="#{anuncioBean.cadastrarAnuncio}"/>
+							</div>
+						</h:panelGroup>
+					</h:panelGrid>	
+					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

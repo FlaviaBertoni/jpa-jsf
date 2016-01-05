@@ -1,0 +1,54 @@
+<ui:composition template="../resources/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <jsp:directive.page language="java"
+        contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" />
+    <jsp:text>
+        <![CDATA[ <?xml version="1.0" encoding="ISO-8859-1" ?> ]]>
+    </jsp:text>
+    <jsp:text>
+        <![CDATA[ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> ]]>
+    </jsp:text>
+	
+	<ui:define name="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<ui:include src="../resources/modulo/menuUsr.xhtml"/>
+				</div>
+				<div class="col-md-9">
+					<div class="page-header">
+				  		<h2>Visualizar Conta <small>abaixo são listados os dados da sua conta.</small></h2>
+					</div>
+					<p:breadCrumb>
+					    <p:menuitem value="Início" url="#" />
+					    <p:menuitem value="Minha Conta" url="#" />
+					    <p:menuitem value="Visualizar conta" url="#" />
+					</p:breadCrumb>
+					
+					<br/>
+					<p:panelGrid columns="2" cellspacing="10" cellpadding="5" style="width: 100%">
+						<h:outputLabel value="Nome de Usuário: "/>
+						<p:outputLabel id="usuario" value="#{usuarioBean.usuariologado.usuario}"/>
+						
+						<h:outputLabel value="Nome: "/>
+						<p:outputLabel id="nome" value="#{usuarioBean.usuariologado.nome}"/>
+						
+						<h:outputLabel value="E-mail: "/>
+						<p:outputLabel id="email" value="#{usuarioBean.usuariologado.email}"/>
+						
+					</p:panelGrid>
+					<br/>
+					<div class="pull-right">
+						<p:button value="cancelar" outcome="inicio"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

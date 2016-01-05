@@ -1,0 +1,64 @@
+<ui:composition template="../resources/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <jsp:directive.page language="java"
+        contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" />
+    <jsp:text>
+        <![CDATA[ <?xml version="1.0" encoding="ISO-8859-1" ?> ]]>
+    </jsp:text>
+    <jsp:text>
+        <![CDATA[ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> ]]>
+    </jsp:text>
+	
+	<ui:define name="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<ui:include src="../resources/modulo/menuAdm.xhtml"/>
+				</div>
+				<div class="col-md-9">
+					<div class="page-header">
+				  		<h2>Excluir Figurinha <small>clique no "x" para excluir a figurinha desejada.</small></h2>
+					</div>
+					<p:breadCrumb>
+					    <p:menuitem value="Início" url="#" />
+					    <p:menuitem value="Buscas" url="#" />
+					    <p:menuitem value="Buscar figurinha" url="#" />
+					</p:breadCrumb>
+					<br/>
+			<p:dataTable id="datatablefig" value="#{figurinhaBean.figurinhas}" var="figurinha"
+			paginator="true" rows="5" paginatorPosition="bottom">
+				<p:column headerText="Código" sortBy="#{figurinha.cod}" filterBy="#{figurinha.cod}">
+					<h:outputText value="#{figurinha.cod}"/>
+				</p:column>
+				<p:column headerText="Nome" sortBy="#{figurinha.nome}" filterBy="#{figurinha.nome}">
+					<h:outputText value="#{figurinha.nome}"/>
+				</p:column>	
+				<p:column headerText="Grupo" sortBy="#{figurinha.grupo}" filterBy="#{figurinha.grupo}">
+					<h:outputText value="#{figurinha.grupo}"/>
+				</p:column>					
+				<p:column headerText="Album" sortBy="#{figurinha.album.nome}" filterBy="#{figurinha.album.nome}">
+					<h:outputText value="#{figurinha.album.nome}"/>
+				</p:column>
+				<p:column>
+					<h:commandLink action="#{figurinhaBean.excluiFigurinha(figurinha.id)}">
+						<h:outputLabel value="x" />
+					</h:commandLink>
+				</p:column>																
+			</p:dataTable>
+			<br/>
+			<div class="pull-right">
+				<p:button value="cancelar" outcome="inicio"/>
+			</div>
+				<b/><br/><br/>
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
