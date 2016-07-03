@@ -12,9 +12,7 @@ import br.ifsp.troca.repository.AlbumRepository;
 @ViewScoped
 public class AlbumBean {
 	
-	
-	
-	private int id;
+	private int id; 
 	private String nome;
 	private int ano;
 	private String editora;
